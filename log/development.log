@@ -1,0 +1,2698 @@
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (128.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (100.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20171013012706)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "first_name" varchar, "last_name" varchar, "role" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171013012706"]]
+  [1m[35m (108.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateSecretCodes (20171013061517)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "secret_codes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "code_string" varchar, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_291bfb56d9"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_secret_codes_on_user_id" ON "secret_codes" ("user_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171013061517"]]
+  [1m[35m (192.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-08-21 14:50:46.056982"], ["updated_at", "2019-08-21 14:50:46.056982"]]
+  [1m[35m (142.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_secret_codes_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_secret_codes_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+Started GET "/" for 127.0.0.1 at 2019-08-21 20:24:01 +0530
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 20:24:02 +0530
+  
+SyntaxError (/home/komalpc/.rvm/gems/ruby-2.5.1/gems/devise-4.3.0/app/controllers/devise/sessions_controller.rb:5: syntax error, unexpected '{', expecting keyword_end
+...ion only: [:create, :destroy] { request.env["devise.skip_tim...
+...                              ^
+/home/komalpc/.rvm/gems/ruby-2.5.1/gems/devise-4.3.0/app/controllers/devise/sessions_controller.rb:5: syntax error, unexpected '}', expecting keyword_end
+..."devise.skip_timeout"] = true }
+...                              ^):
+  
+app/controllers/users/sessions_controller.rb:1:in `<top (required)>'
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 20:31:16 +0530
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (32.8ms)
+Completed 200 OK in 5414ms (Views: 5368.1ms | ActiveRecord: 1.2ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[36mSecretCode Load (0.2ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."code_string" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "first_name", "last_name", "role", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["email", "komal.agrahari@newgenapps.com"], ["encrypted_password", "$2a$11$J2q4G7PiALffSNz5661H3eML6vVB5goXyeKffgMKYd5ojxETAkWp."], ["first_name", "Komal"], ["last_name", "Agrahari"], ["role", 1], ["created_at", "2019-08-21 15:02:13.786271"], ["updated_at", "2019-08-21 15:02:13.786271"]]
+  [1m[35m (86.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSecretCode Load (0.5ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."code_string" = ? AND "secret_codes"."user_id" = ? LIMIT ?[0m  [["code_string", "nga@123"], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["code_string", "nga@123"], ["user_id", 1], ["created_at", "2019-08-21 15:02:13.901619"], ["updated_at", "2019-08-21 15:02:13.901619"]]
+  [1m[35m (70.9ms)[0m  [1m[36mcommit transaction[0m
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-21 20:33:45 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"77ppbaE3SNPJ/t3U1lGGaAlZ82S6g+N1hpuhqLiHyA0/jVlo8ionXU9nYYnp4KC4KwGZJjUhaDi/rc3dmSdQpQ==", "user"=>{"email"=>"komal.agrahari@newgenapps.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "remember_created_at" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["remember_created_at", "2019-08-21 15:03:45.809770"], ["updated_at", "2019-08-21 15:03:45.811160"], ["id", 1]]
+  [1m[35m (71.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = ?, "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "last_sign_in_ip" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["sign_in_count", 1], ["current_sign_in_at", "2019-08-21 15:03:45.887556"], ["last_sign_in_at", "2019-08-21 15:03:45.887556"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2019-08-21 15:03:45.889177"], ["id", 1]]
+  [1m[35m (101.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 455ms (ActiveRecord: 174.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 20:33:46 +0530
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (27.5ms)
+Completed 200 OK in 83ms (Views: 73.7ms | ActiveRecord: 1.3ms)
+
+
+Started POST "/secret_codes" for 127.0.0.1 at 2019-08-21 20:34:01 +0530
+Processing by SecretCodesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ABG6WoChGES6X8OLVyHNjGMtgGtSibCLTSjjrKmHiDcZ0tufhOhzwW8tsG1mLwxHqM56yHjzftQxLN+7TOKU/w==", "commit"=>"Generate More SecretCode", "secret_code_count"=>"10"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "e9b6b5be"], ["created_at", "2019-08-21 15:04:01.991656"], ["updated_at", "2019-08-21 15:04:01.991656"]]
+  [1m[35m (74.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "4939d617"], ["created_at", "2019-08-21 15:04:02.069975"], ["updated_at", "2019-08-21 15:04:02.069975"]]
+  [1m[35m (1372.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "d30e7ac1"], ["created_at", "2019-08-21 15:04:03.447004"], ["updated_at", "2019-08-21 15:04:03.447004"]]
+  [1m[35m (72.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "b9195146"], ["created_at", "2019-08-21 15:04:03.523644"], ["updated_at", "2019-08-21 15:04:03.523644"]]
+  [1m[35m (61.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "abcfc930"], ["created_at", "2019-08-21 15:04:03.590463"], ["updated_at", "2019-08-21 15:04:03.590463"]]
+  [1m[35m (61.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "b4d9091e"], ["created_at", "2019-08-21 15:04:03.656496"], ["updated_at", "2019-08-21 15:04:03.656496"]]
+  [1m[35m (60.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "f97aab77"], ["created_at", "2019-08-21 15:04:03.722349"], ["updated_at", "2019-08-21 15:04:03.722349"]]
+  [1m[35m (96.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "f5906b08"], ["created_at", "2019-08-21 15:04:03.823619"], ["updated_at", "2019-08-21 15:04:03.823619"]]
+  [1m[35m (61.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "dc8d713a"], ["created_at", "2019-08-21 15:04:03.890310"], ["updated_at", "2019-08-21 15:04:03.890310"]]
+  [1m[35m (73.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "ae39a76b"], ["created_at", "2019-08-21 15:04:03.968218"], ["updated_at", "2019-08-21 15:04:03.968218"]]
+  [1m[35m (92.9ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/secret_codes
+Completed 302 Found in 2081ms (ActiveRecord: 2036.5ms)
+
+
+Started GET "/secret_codes" for 127.0.0.1 at 2019-08-21 20:34:04 +0530
+Processing by SecretCodesController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.5ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (8.6ms)
+Completed 200 OK in 66ms (Views: 58.5ms | ActiveRecord: 1.3ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 20:34:29 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"UK26PPe+r1wx5Gsa8//gwjj6ehT+nEZxKd7k527JY15Jbtv58/fE2eSWGPzC8SEJ8xmAt9TmiC5V2tjwi6x/lg=="}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "remember_created_at" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["remember_created_at", nil], ["updated_at", "2019-08-21 15:04:29.078178"], ["id", 1]]
+  [1m[35m (194.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 204ms (ActiveRecord: 195.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 20:34:29 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 20:34:29 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 59ms (Views: 56.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 20:34:33 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (7.1ms)
+Completed 200 OK in 76ms (Views: 73.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 20:36:32 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.2ms)
+Completed 200 OK in 73ms (Views: 68.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 20:37:31 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.0ms)
+Completed 200 OK in 66ms (Views: 63.6ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2019-08-21 20:38:02 +0530
+Processing by Users::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"+9Vtw9EctkXrd4LvcLgFR83paRLHz2BRbb/OD67PG898B8Pg9IdCZftbRQOoyhOrV+SNbLmtZCY2jDsh1TZjUg==", "user"=>{"first_name"=>"kom", "last_name"=>"cha", "email"=>"komitcha@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "code_string"=>"e9"}, "commit"=>"Sign up"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "komitcha@gmail.com"], ["LIMIT", 1]]
+  [1m[36mSecretCode Load (0.2ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."code_string" = ? LIMIT ?[0m  [["code_string", "e9"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "first_name", "last_name", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "komitcha@gmail.com"], ["encrypted_password", "$2a$11$.hgUoYXCQDVv3iv.BJ/Qr.b13zbSwSGdPpXVNk9kbty/b7R3JaNgO"], ["first_name", "kom"], ["last_name", "cha"], ["created_at", "2019-08-21 15:08:02.386853"], ["updated_at", "2019-08-21 15:08:02.386853"]]
+  [1m[35m (713.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = ?, "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "last_sign_in_ip" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["sign_in_count", 1], ["current_sign_in_at", "2019-08-21 15:08:03.105240"], ["last_sign_in_at", "2019-08-21 15:08:03.105240"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2019-08-21 15:08:03.106979"], ["id", 2]]
+  [1m[35m (68.9ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 1055ms (ActiveRecord: 784.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 20:38:03 +0530
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Processing by WelcomeController#index as HTML
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."user_id" = ? LIMIT ?[0m  [["user_id", 2], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.3ms)
+
+
+  
+NoMethodError (undefined method `code_string' for nil:NilClass):
+  
+app/controllers/welcome_controller.rb:3:in `index'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35mSQL (72.9ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 2]]
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 20:47:53 +0530
+Processing by Users::RegistrationsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (7.2ms)
+Completed 200 OK in 64ms (Views: 60.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 20:49:28 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.1ms)
+Completed 200 OK in 64ms (Views: 62.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 20:50:26 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (8.5ms)
+Completed 200 OK in 68ms (Views: 65.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 20:55:46 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.0ms)
+Completed 200 OK in 61ms (Views: 59.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 20:57:00 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (15.8ms)
+Completed 200 OK in 78ms (Views: 75.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:00:52 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.0ms)
+Completed 200 OK in 63ms (Views: 61.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:01:33 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (5.9ms)
+Completed 200 OK in 68ms (Views: 66.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:02:48 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.5ms)
+Completed 200 OK in 70ms (Views: 67.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:03:19 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (11.4ms)
+Completed 200 OK in 81ms (Views: 78.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:07:42 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (12.5ms)
+Completed 200 OK in 78ms (Views: 75.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:09:08 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (5.5ms)
+Completed 200 OK in 63ms (Views: 60.9ms | ActiveRecord: 0.2ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateSecretCodes (20171013061517)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "secret_codes"[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20171013061517"]]
+  [1m[35m (67.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20171013012706)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20171013012706)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP INDEX "index_users_on_reset_password_token"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP INDEX "index_users_on_email"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20171013012706"]]
+  [1m[35m (61.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20171013012706)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "first_name" varchar, "last_name" varchar, "role" integer, "secret_code_id_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_d396652453"
+FOREIGN KEY ("secret_code_id_id")
+  REFERENCES "secret_code_ids" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_users_on_secret_code_id_id" ON "users" ("secret_code_id_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_secret_code_id" ON "users" ("secret_code_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171013012706"]]
+  [1m[35m (198.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateSecretCodes (20171013061517)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "secret_codes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "code_string" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171013061517"]]
+  [1m[35m (253.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_secret_code_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_secret_code_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20171013012706)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_secret_code_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_secret_code_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20171013012706)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_secret_code_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_secret_code_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP INDEX "index_users_on_reset_password_token"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_secret_code_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_secret_code_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_secret_code_id_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP INDEX "index_users_on_email"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20171013012706"]]
+  [1m[35m (188.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateSecretCodes (20171013061517)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "secret_codes"[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20171013061517"]]
+  [1m[35m (197.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20171013012706)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "first_name" varchar, "last_name" varchar, "role" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171013012706"]]
+  [1m[35m (195.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateSecretCodes (20171013061517)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "secret_codes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "code_string" varchar, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_291bfb56d9"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_secret_codes_on_user_id" ON "secret_codes" ("user_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171013061517"]]
+  [1m[35m (377.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_secret_codes_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_secret_codes_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[36mSecretCode Load (0.2ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."code_string" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "first_name", "last_name", "role", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["email", "komal.agrahari@newgenapps.com"], ["encrypted_password", "$2a$11$.J1hSs39/lVmYNyt51hMwuaIfumy5l5H4r7dNqnXVlu8d3i3oPjsK"], ["first_name", "Komal"], ["last_name", "Agrahari"], ["role", 1], ["created_at", "2019-08-21 15:58:53.007858"], ["updated_at", "2019-08-21 15:58:53.007858"]]
+  [1m[35m (495.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSecretCode Load (0.5ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."code_string" = ? AND "secret_codes"."user_id" = ? LIMIT ?[0m  [["code_string", "nga@123"], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["code_string", "nga@123"], ["user_id", 1], ["created_at", "2019-08-21 15:58:53.527484"], ["updated_at", "2019-08-21 15:58:53.527484"]]
+  [1m[35m (65.3ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:42:37 +0530
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (37.8ms)
+Completed 200 OK in 516ms (Views: 473.8ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:43:01 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (7.8ms)
+Completed 200 OK in 64ms (Views: 60.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 21:43:02 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 62ms (Views: 56.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-21 21:43:07 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"O/m69Bv9IUQq27IDHaRRbRktUri3IilN1JOHCBrC1OXcBWOXdKdI8anyT5G+/1sDSzOSJpwpADme5dQtzcj61A==", "user"=>{"email"=>"komal.agrahari@newgenapps.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "remember_created_at" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["remember_created_at", "2019-08-21 16:13:07.550019"], ["updated_at", "2019-08-21 16:13:07.551256"], ["id", 1]]
+  [1m[35m (336.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = ?, "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "last_sign_in_ip" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["sign_in_count", 1], ["current_sign_in_at", "2019-08-21 16:13:07.892137"], ["last_sign_in_at", "2019-08-21 16:13:07.892137"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2019-08-21 16:13:07.893512"], ["id", 1]]
+  [1m[35m (70.5ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 683ms (ActiveRecord: 408.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 21:43:07 +0530
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (25.7ms)
+Completed 200 OK in 75ms (Views: 72.9ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/secret_codes" for 127.0.0.1 at 2019-08-21 21:43:12 +0530
+Processing by SecretCodesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"SjajKUhh4W21CE8PzchseO1Wmh4mV8Cx1hENx+CStqvo0FNV2wQc4M9elJFV9xLVVUzjmQjRwAP7C1dJrvyXaw==", "commit"=>"Generate More SecretCode", "secret_code_count"=>"10"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "1d5d107d"], ["created_at", "2019-08-21 16:13:12.032283"], ["updated_at", "2019-08-21 16:13:12.032283"]]
+  [1m[35m (97.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "63a46bfd"], ["created_at", "2019-08-21 16:13:12.134920"], ["updated_at", "2019-08-21 16:13:12.134920"]]
+  [1m[35m (109.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "1e0cc132"], ["created_at", "2019-08-21 16:13:12.249222"], ["updated_at", "2019-08-21 16:13:12.249222"]]
+  [1m[35m (728.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "fed997e0"], ["created_at", "2019-08-21 16:13:12.982411"], ["updated_at", "2019-08-21 16:13:12.982411"]]
+  [1m[35m (1293.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "8f82569f"], ["created_at", "2019-08-21 16:13:14.280553"], ["updated_at", "2019-08-21 16:13:14.280553"]]
+  [1m[35m (930.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "e66c6761"], ["created_at", "2019-08-21 16:13:15.215405"], ["updated_at", "2019-08-21 16:13:15.215405"]]
+  [1m[35m (249.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "51ae2f8b"], ["created_at", "2019-08-21 16:13:15.468867"], ["updated_at", "2019-08-21 16:13:15.468867"]]
+  [1m[35m (67.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "707c26c8"], ["created_at", "2019-08-21 16:13:15.540521"], ["updated_at", "2019-08-21 16:13:15.540521"]]
+  [1m[35m (72.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "708bc481"], ["created_at", "2019-08-21 16:13:15.617627"], ["updated_at", "2019-08-21 16:13:15.617627"]]
+  [1m[35m (117.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "c2c171e2"], ["created_at", "2019-08-21 16:13:15.739423"], ["updated_at", "2019-08-21 16:13:15.739423"]]
+  [1m[35m (379.9ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/secret_codes
+Completed 302 Found in 4096ms (ActiveRecord: 4053.7ms)
+
+
+Started GET "/secret_codes" for 127.0.0.1 at 2019-08-21 21:43:16 +0530
+Processing by SecretCodesController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.4ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (6.0ms)
+Completed 200 OK in 84ms (Views: 76.5ms | ActiveRecord: 1.1ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 21:43:27 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"NPCgV+aDEWJqGVbhkR7wHpiOS+nNanagDTH+IwkkWqOWFlArdebs7xBPjX8JIY6zIJQybuPsdhIgK6StR0p7Yw=="}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[33mUPDATE "users" SET "remember_created_at" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["remember_created_at", nil], ["updated_at", "2019-08-21 16:13:27.780721"], ["id", 1]]
+  [1m[35m (192.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 208ms (ActiveRecord: 193.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 21:43:27 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 21:43:28 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 66ms (Views: 63.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 21:43:31 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (5.6ms)
+Completed 200 OK in 66ms (Views: 62.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:43:32 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (13.5ms)
+Completed 200 OK in 72ms (Views: 68.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:47:22 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.6ms)
+Completed 200 OK in 67ms (Views: 64.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:47:31 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (5.9ms)
+Completed 200 OK in 86ms (Views: 82.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:48:47 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (8.0ms)
+Completed 200 OK in 67ms (Views: 65.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:49:54 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (10.1ms)
+Completed 200 OK in 73ms (Views: 69.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:54:53 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (10.2ms)
+Completed 200 OK in 94ms (Views: 69.6ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 21:58:51 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (8.1ms)
+Completed 200 OK in 70ms (Views: 66.6ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2019-08-21 21:59:22 +0530
+Processing by Users::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Ok03eno84EAOAfgYO5IzzCAMFZ3UFgd6pfzWUs9Cyr+BnjxW3fcBXEvSvsr6A3YBp465f4YURH/qyg5zeDzPJA==", "user"=>{"first_name"=>"dggf", "last_name"=>"", "email"=>"fff", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "code_string"=>"1e0cc132"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "fff"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (7.4ms)
+Completed 200 OK in 321ms (Views: 67.9ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2019-08-21 21:59:58 +0530
+Processing by Users::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ZErok+22D0OQ/wzwWs/8+iB/LvKWig21hDEJMTMPAfTfmeO/Sn3uX9UsSiKbXrk3p/2CEMSITrDLB9EQhHEEbw==", "user"=>{"first_name"=>"dggf", "last_name"=>"", "email"=>"fff@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "code_string"=>"1e0cc132"}}
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "fff@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.6ms)
+Completed 200 OK in 79ms (Views: 59.8ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2019-08-21 22:00:10 +0530
+Processing by Users::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"WJOC1qa8uhCcwQPZwId5ZPv1E5M0K58Pu9ZCADT2XqrjQIn6AXdbDNkSRQsBFjypfHe/cWYp3Ar04Johg4hbMQ==", "user"=>{"first_name"=>"dggf", "last_name"=>"", "email"=>"fff@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "code_string"=>"1e0cc132"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "fff@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "first_name", "last_name", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "fff@gmail.com"], ["encrypted_password", "$2a$11$6lKPMpUApx9V5Td7sIGOEOm3r/pKU7noT3iLdVsazEsXECF5pC/vS"], ["first_name", "dggf"], ["last_name", ""], ["created_at", "2019-08-21 16:30:10.855617"], ["updated_at", "2019-08-21 16:30:10.855617"]]
+  [1m[36mSecretCode Load (0.2ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."code_string" = ? LIMIT ?[0m  [["code_string", "1e0cc132"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "secret_codes" SET "user_id" = 2 WHERE "secret_codes"."id" = ?[0m  [["id", 4]]
+  [1m[35m (183.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = ?, "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "last_sign_in_ip" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["sign_in_count", 1], ["current_sign_in_at", "2019-08-21 16:30:11.052570"], ["last_sign_in_at", "2019-08-21 16:30:11.052570"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2019-08-21 16:30:11.054089"], ["id", 2]]
+  [1m[36mSecretCode Load (0.2ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."code_string" = ? LIMIT ?[0m  [["code_string", "1e0cc132"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "secret_codes" SET "user_id" = 2 WHERE "secret_codes"."id" = ?[0m  [["id", 4]]
+  [1m[35m (66.4ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 533ms (ActiveRecord: 253.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:00:11 +0530
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Processing by WelcomeController#index as HTML
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."user_id" = ? LIMIT ?[0m  [["user_id", 2], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 66ms (Views: 59.4ms | ActiveRecord: 0.3ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 22:00:24 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"3JDbXTikMhxeirqaKS0AyM/leqcPndQGWQzax/H1CDVnQ9Bxn2/TABtZ/EjovEUFSGfWRV2flwMWOgLmRosNrg=="}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSecretCode Load (0.2ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."code_string" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.7ms)
+
+
+  
+NoMethodError (undefined method `update_column' for nil:NilClass):
+  
+app/models/user.rb:14:in `save_default'
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:01:47 +0530
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Processing by WelcomeController#index as HTML
+  [1m[36mSecretCode Load (0.2ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."user_id" = ? LIMIT ?[0m  [["user_id", 2], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 73ms (Views: 70.1ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 22:03:23 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"gjr86UtwlRvHhNkdcsf7cfkHlHIQvEbWujG9fJSxNE456ffF7Lt0B4JXn8+zVr68foU4kEK+BdP1B2VdI88x1Q=="}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 30ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:03:23 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:03:23 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 56ms (Views: 54.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:03:27 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"xllhFw7AFPyWwRNni+NdDnipZrBukoEpP+WWUT53OMV5BUUsSwTTEmvxYsLQjtKIWqUjkQhrf2zuoNSst0N5yA==", "user"=>{"email"=>"fff@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "fff@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-21 16:33:27.597867"], ["sign_in_count", 2], ["updated_at", "2019-08-21 16:33:27.599032"], ["id", 2]]
+  [1m[35m (62.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 327ms (ActiveRecord: 63.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:03:27 +0530
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Processing by WelcomeController#index as HTML
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."user_id" = ? LIMIT ?[0m  [["user_id", 2], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 68ms (Views: 50.7ms | ActiveRecord: 1.2ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 22:03:31 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"aC4JTdvHW0ChGH93uSpXIOHujIE20FvlDFZ/aI42+Ea1hOoXLI6bQjwCrSaj64Idgg3A4OXRTfKjRNf0a4d03g=="}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 9ms (ActiveRecord: 0.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:03:31 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:03:31 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 71ms (Views: 69.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:03:33 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"SG7Ay8g+gl1P6BpKQonGrCvc8Y13CjIglXxPCnmZtgaAjo6YHWndY5i5NZxpfUxhPZ4ChjVXkgnMn3KgoG53zA==", "user"=>{"email"=>"fff@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "fff@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-21 16:33:34.164236"], ["last_sign_in_at", "2019-08-21 16:33:27.597867"], ["sign_in_count", 3], ["updated_at", "2019-08-21 16:33:34.165115"], ["id", 2]]
+  [1m[35m (62.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 320ms (ActiveRecord: 63.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:03:34 +0530
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Processing by WelcomeController#index as HTML
+  [1m[36mSecretCode Load (0.4ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."user_id" = ? LIMIT ?[0m  [["user_id", 2], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 55ms (Views: 50.3ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 22:03:37 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"3UZSMqxHpVNfVl96NiZ9V3gKuSC1nAoCOUct2U7O9+/8zu6AXeci4mvNItla7mlS8BI8zLmqUuiWL4PU0Dp3vA=="}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 8ms (ActiveRecord: 0.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:03:37 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:03:37 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 56ms (Views: 54.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:03:50 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"2OEN5g21wn4frQfDXP5XA97S6q2XY4IPmMtq6DdNF2CW+gNR+uAVBKEO2NxM7z63GZPB0g86YqYA5rk9CvvHfg==", "user"=>{"email"=>"komal.agrahari@newgenapps.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-21 16:33:50.989609"], ["sign_in_count", 2], ["updated_at", "2019-08-21 16:33:50.990494"], ["id", 1]]
+  [1m[35m (1218.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 1472ms (ActiveRecord: 1219.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:03:52 +0530
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (7.5ms)
+Completed 200 OK in 60ms (Views: 57.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:15:09 +0530
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (34.8ms)
+Completed 200 OK in 4058ms (Views: 4041.4ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:16:28 +0530
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (6.5ms)
+Completed 200 OK in 70ms (Views: 66.3ms | ActiveRecord: 0.5ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 22:16:33 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"0A2fZGMM+39O3+ZS6aweZ0dt4XXISM5H5ZvJuyIinA9MOLX1u+YM3BNb8QssI4MYuCKlJd+O203WOP0mstin0A=="}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 16ms (ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:16:33 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:16:33 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (12.1ms)
+Completed 200 OK in 85ms (Views: 83.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:16:36 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 79ms (Views: 77.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:34:38 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.3ms)
+Completed 500 Internal Server Error in 27ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'twitter/bootstrap' with type 'text/css'
+Checked in these paths: 
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/config
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/images
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/jquery-rails-4.3.1/vendor/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/fonts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/vendor/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actioncable-5.1.4/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actionview-5.1.4/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/turbolinks-source-5.0.3/lib/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/node_modules
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/popper_js-1.11.1/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/bootstrap-4.0.0.beta/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/bootstrap-4.0.0.beta/assets/javascripts):
+    3:   <head>
+    4:     <title>Rails Secret Code</title>
+    5:     <%= csrf_meta_tags %>
+    6:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    7:     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    8:   </head>
+    9:   <body>
+  
+app/assets/stylesheets/application.css:14
+app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb__1665194230694182299_70105621174180'
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:35:10 +0530
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (31.1ms)
+Completed 500 Internal Server Error in 415ms (ActiveRecord: 1.6ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'twitter/bootstrap/responsive' with type 'text/css'
+Checked in these paths: 
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/config
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/images
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/jquery-rails-4.3.1/vendor/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/images
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actioncable-5.1.4/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actionview-5.1.4/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/turbolinks-source-5.0.3/lib/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/node_modules):
+    3:   <head>
+    4:     <title>Rails Secret Code</title>
+    5:     <%= csrf_meta_tags %>
+    6:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    7:     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    8:   </head>
+    9:   <body>
+  
+app/assets/stylesheets/application.css:17
+app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___4405938166686492826_34738380'
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:46:46 +0530
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (25.2ms)
+  Rendered layouts/_user_header.html.erb (1.2ms)
+Completed 200 OK in 4764ms (Views: 4717.6ms | ActiveRecord: 1.8ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:47:08 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"FtXX79FQCu8Veenht+UwmaU+R+9z+k8FZDWIG1CUc5F/2I+FXEfD5WHoUnPOvKPN5DUjFKgp1s3st0i/r6wBSQ==", "user"=>{"email"=>"komal.agrahari@newgenapps.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-21 17:17:08.497502"], ["last_sign_in_at", "2019-08-21 16:33:50.989609"], ["sign_in_count", 3], ["updated_at", "2019-08-21 17:17:08.498782"], ["id", 1]]
+  [1m[35m (69.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 342ms (ActiveRecord: 70.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:47:08 +0530
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (31.6ms)
+  Rendered layouts/_user_header.html.erb (1.0ms)
+Completed 200 OK in 100ms (Views: 92.5ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:49:06 +0530
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (33.4ms)
+  Rendered layouts/_user_header.html.erb (1.0ms)
+Completed 200 OK in 5409ms (Views: 5391.9ms | ActiveRecord: 1.7ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 22:49:22 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"cnjSaIc/OFF9jI7AAZKHHaUNFaMHFOj/gX8kyodF85vYvVwkq+Lq2SuwAMsYby1FjpiB9soq9ykQVZxTeQckPw=="}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 21ms (ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 22:49:22 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:49:22 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (15.4ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 105ms (Views: 101.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:49:26 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.0ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 82ms (Views: 79.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 22:49:28 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.8ms)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (11.5ms)
+  Rendered layouts/_user_header.html.erb (1.5ms)
+Completed 200 OK in 94ms (Views: 91.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 22:56:00 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/shared/_links.html.erb (1.7ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (13.1ms)
+  Rendered layouts/_user_header.html.erb (1.3ms)
+Completed 200 OK in 120ms (Views: 89.4ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 22:56:35 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/shared/_links.html.erb (2.0ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (10.4ms)
+  Rendered layouts/_user_header.html.erb (1.2ms)
+Completed 200 OK in 98ms (Views: 95.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 22:57:34 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.5ms)
+  Rendered layouts/_user_header.html.erb (1.9ms)
+Completed 200 OK in 90ms (Views: 87.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 22:59:45 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.9ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (7.0ms)
+  Rendered layouts/_user_header.html.erb (1.2ms)
+Completed 200 OK in 85ms (Views: 82.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:00:08 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (2.1ms)
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 0.0ms)
+
+
+  
+SyntaxError (/home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/sessions/new.html.erb:30: syntax error, unexpected keyword_ensure, expecting keyword_end
+/home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/sessions/new.html.erb:32: syntax error, unexpected end-of-input, expecting keyword_end):
+  
+app/views/devise/sessions/new.html.erb:30: syntax error, unexpected keyword_ensure, expecting keyword_end
+app/views/devise/sessions/new.html.erb:32: syntax error, unexpected end-of-input, expecting keyword_end
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:00:43 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.2ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 90ms (Views: 85.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:01:08 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.4ms)
+  Rendered layouts/_user_header.html.erb (1.5ms)
+Completed 200 OK in 82ms (Views: 80.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:01:43 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.3ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 814ms (Views: 811.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 23:01:51 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (13.1ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 93ms (Views: 89.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:01:59 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (6.5ms)
+  Rendered layouts/_user_header.html.erb (1.0ms)
+Completed 200 OK in 92ms (Views: 88.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:02:02 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ijQpc10ifI9Mfrnc5sW0q2E9dWR2tB/A5ukzNakf4bpwdkwro5jcHBELu2P7a6lk8b2rKXNWjBFQMWWO92Cqiw==", "user"=>{"email"=>"komal.agrahari@newgenapps.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-21 17:32:02.345642"], ["last_sign_in_at", "2019-08-21 17:17:08.497502"], ["sign_in_count", 4], ["updated_at", "2019-08-21 17:32:02.346659"], ["id", 1]]
+  [1m[35m (62.4ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 329ms (ActiveRecord: 63.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:02:02 +0530
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (17.6ms)
+  Rendered layouts/_user_header.html.erb (1.2ms)
+Completed 200 OK in 90ms (Views: 86.9ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:04:10 +0530
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.6ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (24.4ms)
+  Rendered layouts/_user_header.html.erb (0.9ms)
+Completed 200 OK in 103ms (Views: 99.6ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:04:48 +0530
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (8.4ms)
+  Rendered layouts/_user_header.html.erb (1.0ms)
+Completed 200 OK in 90ms (Views: 84.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:05:52 +0530
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.4ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (7.2ms)
+  Rendered layouts/_user_header.html.erb (0.9ms)
+Completed 200 OK in 814ms (Views: 810.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:06:22 +0530
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (9.3ms)
+  Rendered layouts/_user_header.html.erb (0.9ms)
+Completed 200 OK in 821ms (Views: 817.1ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:06:25 +0530
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (8.4ms)
+  Rendered layouts/_user_header.html.erb (0.9ms)
+Completed 200 OK in 81ms (Views: 78.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:07:13 +0530
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered secret_codes/index.html.erb within layouts/application (6.6ms)
+  Rendered layouts/_user_header.html.erb (1.3ms)
+Completed 200 OK in 795ms (Views: 793.2ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/secret_codes" for 127.0.0.1 at 2019-08-21 23:07:23 +0530
+Processing by SecretCodesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"61PnnSRkVNAICQE3YnyobGHOtlwRPk9bnX5SIri8VUnOhNFvvzl4Yvk8n6wkeA8RJytsgNXQCuHQC+7pMIy13A==", "commit"=>"Generate More SecretCode", "secret_code_count"=>"20"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "927cca70"], ["created_at", "2019-08-21 17:37:23.886528"], ["updated_at", "2019-08-21 17:37:23.886528"]]
+  [1m[35m (184.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "093daa31"], ["created_at", "2019-08-21 17:37:24.074585"], ["updated_at", "2019-08-21 17:37:24.074585"]]
+  [1m[35m (61.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "4b975cbc"], ["created_at", "2019-08-21 17:37:24.140787"], ["updated_at", "2019-08-21 17:37:24.140787"]]
+  [1m[35m (61.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "24c8b02e"], ["created_at", "2019-08-21 17:37:24.207002"], ["updated_at", "2019-08-21 17:37:24.207002"]]
+  [1m[35m (78.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "8ee3b498"], ["created_at", "2019-08-21 17:37:24.290363"], ["updated_at", "2019-08-21 17:37:24.290363"]]
+  [1m[35m (60.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "4f823e25"], ["created_at", "2019-08-21 17:37:24.356094"], ["updated_at", "2019-08-21 17:37:24.356094"]]
+  [1m[35m (60.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "01afc04f"], ["created_at", "2019-08-21 17:37:24.422043"], ["updated_at", "2019-08-21 17:37:24.422043"]]
+  [1m[35m (61.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "bb8899fb"], ["created_at", "2019-08-21 17:37:24.488496"], ["updated_at", "2019-08-21 17:37:24.488496"]]
+  [1m[35m (59.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "c6b956d1"], ["created_at", "2019-08-21 17:37:24.553807"], ["updated_at", "2019-08-21 17:37:24.553807"]]
+  [1m[35m (93.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "ad3eadb7"], ["created_at", "2019-08-21 17:37:24.654369"], ["updated_at", "2019-08-21 17:37:24.654369"]]
+  [1m[35m (70.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "b59c7dae"], ["created_at", "2019-08-21 17:37:24.731033"], ["updated_at", "2019-08-21 17:37:24.731033"]]
+  [1m[35m (70.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "691e4117"], ["created_at", "2019-08-21 17:37:24.807916"], ["updated_at", "2019-08-21 17:37:24.807916"]]
+  [1m[35m (143.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "dee9789d"], ["created_at", "2019-08-21 17:37:24.956679"], ["updated_at", "2019-08-21 17:37:24.956679"]]
+  [1m[35m (105.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "2db10e7c"], ["created_at", "2019-08-21 17:37:25.067936"], ["updated_at", "2019-08-21 17:37:25.067936"]]
+  [1m[35m (82.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "021e3b3d"], ["created_at", "2019-08-21 17:37:25.155761"], ["updated_at", "2019-08-21 17:37:25.155761"]]
+  [1m[35m (72.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "c7098ccf"], ["created_at", "2019-08-21 17:37:25.232884"], ["updated_at", "2019-08-21 17:37:25.232884"]]
+  [1m[35m (71.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "63a7b4c6"], ["created_at", "2019-08-21 17:37:25.309849"], ["updated_at", "2019-08-21 17:37:25.309849"]]
+  [1m[35m (72.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "83d6de9b"], ["created_at", "2019-08-21 17:37:25.386695"], ["updated_at", "2019-08-21 17:37:25.386695"]]
+  [1m[35m (452.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "f6d4a6b7"], ["created_at", "2019-08-21 17:37:25.843847"], ["updated_at", "2019-08-21 17:37:25.843847"]]
+  [1m[35m (117.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "3d30146a"], ["created_at", "2019-08-21 17:37:25.965321"], ["updated_at", "2019-08-21 17:37:25.965321"]]
+  [1m[35m (73.0ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/secret_codes
+Completed 302 Found in 2171ms (ActiveRecord: 2071.1ms)
+
+
+Started GET "/secret_codes" for 127.0.0.1 at 2019-08-21 23:07:26 +0530
+Processing by SecretCodesController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.5ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (13.0ms)
+  Rendered layouts/_user_header.html.erb (0.8ms)
+Completed 200 OK in 87ms (Views: 80.9ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/secret_codes" for 127.0.0.1 at 2019-08-21 23:08:37 +0530
+Processing by SecretCodesController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.4ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (10.4ms)
+  Rendered layouts/_user_header.html.erb (0.9ms)
+Completed 200 OK in 92ms (Views: 85.3ms | ActiveRecord: 1.4ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 23:08:59 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"cvx9jUyu03T3SoaW5HHyGf1lwWGK9uHHXPTuhxb23JFXK0t/1/P/xgZ/GA2idVVku4AbvU4YpH0RgVJMnsY8BA=="}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 6ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:08:59 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:08:59 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (4.3ms)
+  Rendered layouts/_user_header.html.erb (1.0ms)
+Completed 200 OK in 90ms (Views: 87.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 23:09:07 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (11.0ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 93ms (Views: 90.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 23:11:19 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (9.0ms)
+  Rendered layouts/_user_header.html.erb (1.4ms)
+Completed 200 OK in 97ms (Views: 93.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 23:13:03 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.4ms)
+  Rendered layouts/_user_header.html.erb (1.2ms)
+Completed 200 OK in 97ms (Views: 94.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:13:04 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:13:04 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (4.0ms)
+  Rendered layouts/_user_header.html.erb (1.0ms)
+Completed 200 OK in 76ms (Views: 72.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:13:10 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (7.2ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 88ms (Views: 85.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-21 23:13:12 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (9.0ms)
+  Rendered layouts/_user_header.html.erb (1.2ms)
+Completed 200 OK in 94ms (Views: 91.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:13:14 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (5.4ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 104ms (Views: 100.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:13:20 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"2iS4jyiHqwGU/Lo4S0IyL8w3JDYEjCWaM5oBb2kEFEbDMrlMO8JMdaIQz/zO4UyAKcha53mEV539UeeO95/0ZA==", "user"=>{"email"=>"komal.agrahari@newgenapps.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-21 17:43:20.685257"], ["last_sign_in_at", "2019-08-21 17:32:02.345642"], ["sign_in_count", 5], ["updated_at", "2019-08-21 17:43:20.686206"], ["id", 1]]
+  [1m[35m (70.4ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 332ms (ActiveRecord: 71.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:13:20 +0530
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (9.2ms)
+  Rendered layouts/_user_header.html.erb (0.9ms)
+Completed 200 OK in 82ms (Views: 78.1ms | ActiveRecord: 0.8ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 23:13:27 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"NsWXZi3mhxbO7g5R9lMaSuzlzB+aTHisN5o37ykZiHXiXKSM11jtARdidBzVvdfDPmLZi/d1tO/owXtqLeYM3Q=="}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 5ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:13:27 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:13:27 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (4.2ms)
+  Rendered layouts/_user_header.html.erb (1.4ms)
+Completed 200 OK in 78ms (Views: 75.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:13:33 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"GcG3j7Pq3eJR+vvGIVHkLZdEbjFRDXCjjDB7j7v8I4aU4ezYbkcWDVjUllbRADgee21wTntqkac1yyZjbdJoUA==", "user"=>{"email"=>"fff@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "fff@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-21 17:43:34.185355"], ["last_sign_in_at", "2019-08-21 16:33:34.164236"], ["sign_in_count", 4], ["updated_at", "2019-08-21 17:43:34.186616"], ["id", 2]]
+  [1m[35m (68.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 353ms (ActiveRecord: 69.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:13:34 +0530
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Processing by WelcomeController#index as HTML
+  [1m[36mSecretCode Load (0.2ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."user_id" = ? LIMIT ?[0m  [["user_id", 2], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (1.1ms)
+  Rendered layouts/_user_header.html.erb (1.3ms)
+Completed 200 OK in 71ms (Views: 67.2ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 23:14:01 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"igxxANEP9r/myQ0T3DK7Y2WjJCqgP3qOxsBtE/eP2jHRlmm2oyYvFw+TuzJB+fhMC3/FuBf1qfmG5yCMNlpwHA=="}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 6ms (ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:14:01 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:14:01 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.9ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 77ms (Views: 75.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:14:06 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nbgkBRs1vEDlqzZPa8AYR7ZSQSfFt0xgbRObiur2boQ1E6nx8Q3wt1ZUH4U1ZmQlbiNJYz/LVbLfVD7rzhfcIw==", "user"=>{"email"=>"fff@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "fff@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-21 17:44:06.853947"], ["last_sign_in_at", "2019-08-21 17:43:34.185355"], ["sign_in_count", 5], ["updated_at", "2019-08-21 17:44:06.854902"], ["id", 2]]
+  [1m[35m (61.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 328ms (ActiveRecord: 62.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:14:06 +0530
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Processing by WelcomeController#index as HTML
+  [1m[36mSecretCode Load (0.2ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."user_id" = ? LIMIT ?[0m  [["user_id", 2], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (1.3ms)
+  Rendered layouts/_user_header.html.erb (0.8ms)
+Completed 200 OK in 81ms (Views: 77.5ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-21 23:14:10 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"GwTxucPVErhZStK4Ju72+xjwT1VKNhA9s4OM19jvDPCPCocOO6bv3t1JHy+7s88qcgc/ysSJ4g3ce7xbiFiJKg=="}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 12ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-21 23:14:10 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-21 23:14:10 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.3ms)
+  Rendered layouts/_user_header.html.erb (1.2ms)
+Completed 200 OK in 75ms (Views: 73.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-22 06:06:39 +0530
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 6ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-22 06:06:40 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (86.6ms)
+  Rendered layouts/_user_header.html.erb (2.2ms)
+Completed 200 OK in 1705ms (Views: 1667.6ms | ActiveRecord: 2.1ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-22 06:06:52 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"92tx3x8LUrrrQgaplYNzCAyhlcfflABoSybWroV7fnW6Qnl0OLvfC9X0rgF3ZdYYwcmc7BRCbFUgRypN7weGyw==", "user"=>{"email"=>"fff@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "fff@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (10.6ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-22 00:36:53.056100"], ["last_sign_in_at", "2019-08-21 17:44:06.853947"], ["sign_in_count", 6], ["updated_at", "2019-08-22 00:36:53.058064"], ["id", 2]]
+  [1m[35m (96.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 928ms (ActiveRecord: 107.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-22 06:06:53 +0530
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Processing by WelcomeController#index as HTML
+  [1m[36mSecretCode Load (0.2ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" WHERE "secret_codes"."user_id" = ? LIMIT ?[0m  [["user_id", 2], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (1.1ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 150ms (Views: 67.7ms | ActiveRecord: 1.1ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-22 06:07:03 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"AGIQSGGCW4bYgsLupOYVMMjfEPTn3y+NVmR8J6V1VEd4GDOW6VnErRAzurTVKTdD/xeFia6hg+EeZ6L/GDIkwA=="}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 46ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-22 06:07:03 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-22 06:07:03 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.3ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 79ms (Views: 75.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2019-08-22 06:07:12 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"lN4WvpkRoiZIp1dRQzQjP0yMrHTIXL6xWdpwKrvw/cIvi9iaeIZPyQ+jPZbjiAfYOVsH8eJzomp79i+mzyV1rQ==", "user"=>{"email"=>"komal.agrahari@newgenapps.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-22 00:37:12.516972"], ["last_sign_in_at", "2019-08-21 17:43:20.685257"], ["sign_in_count", 6], ["updated_at", "2019-08-22 00:37:12.517864"], ["id", 1]]
+  [1m[35m (66.5ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 329ms (ActiveRecord: 67.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-22 06:07:12 +0530
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.4ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (11.4ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 107ms (Views: 95.8ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/secret_codes?page=2" for 127.0.0.1 at 2019-08-22 06:08:09 +0530
+Processing by SecretCodesController#index as HTML
+  Parameters: {"page"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.4ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 15]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (7.5ms)
+  Rendered layouts/_user_header.html.erb (0.8ms)
+Completed 200 OK in 79ms (Views: 74.6ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/secret_codes?page=3" for 127.0.0.1 at 2019-08-22 06:08:14 +0530
+Processing by SecretCodesController#index as HTML
+  Parameters: {"page"=>"3"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 30]]
+  Rendered secret_codes/index.html.erb within layouts/application (6.1ms)
+  Rendered layouts/_user_header.html.erb (0.8ms)
+Completed 200 OK in 77ms (Views: 72.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/secret_codes?page=2" for 127.0.0.1 at 2019-08-22 06:08:19 +0530
+Processing by SecretCodesController#index as HTML
+  Parameters: {"page"=>"2"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.6ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 15]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (10.6ms)
+  Rendered layouts/_user_header.html.erb (0.8ms)
+Completed 200 OK in 94ms (Views: 87.7ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/secret_codes?page=3" for 127.0.0.1 at 2019-08-22 06:08:33 +0530
+Processing by SecretCodesController#index as HTML
+  Parameters: {"page"=>"3"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.6ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 30]]
+  Rendered secret_codes/index.html.erb within layouts/application (7.9ms)
+  Rendered layouts/_user_header.html.erb (0.8ms)
+Completed 200 OK in 89ms (Views: 82.6ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/secret_codes?page=2" for 127.0.0.1 at 2019-08-22 06:08:36 +0530
+Processing by SecretCodesController#index as HTML
+  Parameters: {"page"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.6ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 15]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (9.2ms)
+  Rendered layouts/_user_header.html.erb (0.8ms)
+Completed 200 OK in 80ms (Views: 75.7ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/secret_codes?page=1" for 127.0.0.1 at 2019-08-22 06:08:41 +0530
+Processing by SecretCodesController#index as HTML
+  Parameters: {"page"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.4ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (10.3ms)
+  Rendered layouts/_user_header.html.erb (0.9ms)
+Completed 200 OK in 79ms (Views: 74.8ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/secret_codes" for 127.0.0.1 at 2019-08-22 06:12:03 +0530
+Processing by SecretCodesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IcjUTBO/o6nUIF0laWHUalIUcPMNE25j23ymEMnLvxZISNlG/oLwdrRIj6T5Rl2D+7LkDTuhgKjb9w6d2089qg==", "commit"=>"Generate More SecretCode", "secret_code_count"=>"10"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "1846c4d9"], ["created_at", "2019-08-22 00:42:03.740987"], ["updated_at", "2019-08-22 00:42:03.740987"]]
+  [1m[35m (88.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "c2d300b1"], ["created_at", "2019-08-22 00:42:03.833359"], ["updated_at", "2019-08-22 00:42:03.833359"]]
+  [1m[35m (94.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "b6ff8c33"], ["created_at", "2019-08-22 00:42:03.932563"], ["updated_at", "2019-08-22 00:42:03.932563"]]
+  [1m[35m (61.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "4cb6f452"], ["created_at", "2019-08-22 00:42:03.999027"], ["updated_at", "2019-08-22 00:42:03.999027"]]
+  [1m[35m (60.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "d75ff1c4"], ["created_at", "2019-08-22 00:42:04.064021"], ["updated_at", "2019-08-22 00:42:04.064021"]]
+  [1m[35m (61.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "42daedc5"], ["created_at", "2019-08-22 00:42:04.130223"], ["updated_at", "2019-08-22 00:42:04.130223"]]
+  [1m[35m (61.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "58ca537f"], ["created_at", "2019-08-22 00:42:04.196422"], ["updated_at", "2019-08-22 00:42:04.196422"]]
+  [1m[35m (95.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "ec8f00f0"], ["created_at", "2019-08-22 00:42:04.296225"], ["updated_at", "2019-08-22 00:42:04.296225"]]
+  [1m[35m (60.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "5a3875f6"], ["created_at", "2019-08-22 00:42:04.362314"], ["updated_at", "2019-08-22 00:42:04.362314"]]
+  [1m[35m (61.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "secret_codes" ("code_string", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["code_string", "157b572b"], ["created_at", "2019-08-22 00:42:04.428775"], ["updated_at", "2019-08-22 00:42:04.428775"]]
+  [1m[35m (60.9ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/secret_codes
+Completed 302 Found in 806ms (ActiveRecord: 717.4ms)
+
+
+Started GET "/secret_codes" for 127.0.0.1 at 2019-08-22 06:12:04 +0530
+Processing by SecretCodesController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.4ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (15.3ms)
+  Rendered layouts/_user_header.html.erb (0.9ms)
+Completed 200 OK in 95ms (Views: 85.9ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/secret_codes?page=3" for 127.0.0.1 at 2019-08-22 06:12:10 +0530
+Processing by SecretCodesController#index as HTML
+  Parameters: {"page"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.4ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 30]]
+  Rendered secret_codes/index.html.erb within layouts/application (5.7ms)
+  Rendered layouts/_user_header.html.erb (0.8ms)
+Completed 200 OK in 72ms (Views: 68.3ms | ActiveRecord: 0.7ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2019-08-22 06:20:35 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"ojZxZ3LTIZPyg50XTs8s/z6+gUH5mew5T88Bh9qvgBVYVrdOv3vuKisWU895rBtA4gzp4OWDLVk8Cn/0EoBdnQ=="}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 5ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-08-22 06:20:35 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-08-22 06:20:35 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.5ms)
+  Rendered layouts/_user_header.html.erb (1.5ms)
+Completed 200 OK in 89ms (Views: 88.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-22 06:20:39 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (7.1ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 74ms (Views: 72.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-22 06:36:54 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (3109.2ms)
+Completed 500 Internal Server Error in 3145ms (ActiveRecord: 2.5ms)
+
+
+  
+ActionView::Template::Error (Asset was not declared to be precompiled in production.
+Add `Rails.application.config.assets.precompile += %w( userValidation.js )` to `config/initializers/assets.rb` and restart your server):
+    37:     </div>
+    38:   <% end %>
+    39: </div>
+    40: <%= javascript_include_tag 'userValidation'%>
+  
+app/views/devise/registrations/new.html.erb:40:in `_app_views_devise_registrations_new_html_erb__4446094711276968779_70039389662300'
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-22 06:40:43 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (66.8ms)
+Completed 500 Internal Server Error in 85ms (ActiveRecord: 0.5ms)
+
+
+  
+ActionView::Template::Error (Asset was not declared to be precompiled in production.
+Add `Rails.application.config.assets.precompile += %w( userValidation.js )` to `config/initializers/assets.rb` and restart your server):
+    37:     </div>
+    38:   <% end %>
+    39: </div>
+    40: <%= javascript_include_tag 'userValidation'%>
+  
+app/views/devise/registrations/new.html.erb:40:in `_app_views_devise_registrations_new_html_erb__4446094711276968779_70039407971680'
+Started GET "/users/sign_up" for 127.0.0.1 at 2019-08-22 06:41:25 +0530
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (12418.5ms)
+Completed 500 Internal Server Error in 12477ms (ActiveRecord: 2.1ms)
+
+
+  
+ActionView::Template::Error (Undefined variable: "$alert-padding-y".):
+    37:     </div>
+    38:   <% end %>
+    39: </div>
+    40: <%= javascript_include_tag 'userValidation'%>
+  
+app/views/devise/registrations/new.html.erb:40:in `_app_views_devise_registrations_new_html_erb___4165629848435899208_39939260'
+Started GET "/users/sign_up" for ::1 at 2019-08-22 06:54:07 +0530
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper.devise_error_messages!`
+is deprecated and it will be removed in the next major version.
+To customize the errors styles please run `rails g devise:views` and modify the
+`devise/shared/error_messages` partial.
+ (called from block in _app_views_devise_registrations_new_html_erb__2041113382913139376_44179580 at /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/registrations/new.html.erb:4)
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (16236.1ms)
+Completed 500 Internal Server Error in 16306ms (ActiveRecord: 2.2ms)
+
+
+  
+ActionView::Template::Error (Undefined variable: "$alert-padding-y".):
+    37:     </div>
+    38:   <% end %>
+    39: </div>
+    40: <%= javascript_include_tag 'userValidation'%>
+  
+app/views/devise/registrations/new.html.erb:40:in `_app_views_devise_registrations_new_html_erb__2041113382913139376_44179580'
+Started GET "/users/sign_up" for ::1 at 2019-08-22 06:56:55 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper.devise_error_messages!`
+is deprecated and it will be removed in the next major version.
+To customize the errors styles please run `rails g devise:views` and modify the
+`devise/shared/error_messages` partial.
+ (called from block in _app_views_devise_registrations_new_html_erb__2041113382913139376_70285668754440 at /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/registrations/new.html.erb:4)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (845.3ms)
+Completed 500 Internal Server Error in 864ms (ActiveRecord: 0.3ms)
+
+
+  
+ActionView::Template::Error (Undefined variable: "$alert-padding-y".):
+    37:     </div>
+    38:   <% end %>
+    39: </div>
+    40: <%= javascript_include_tag 'userValidation'%>
+  
+app/views/devise/registrations/new.html.erb:40:in `_app_views_devise_registrations_new_html_erb__2041113382913139376_70285668754440'
+Started GET "/users/sign_up" for ::1 at 2019-08-22 06:57:36 +0530
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper.devise_error_messages!`
+is deprecated and it will be removed in the next major version.
+To customize the errors styles please run `rails g devise:views` and modify the
+`devise/shared/error_messages` partial.
+ (called from block in _app_views_devise_registrations_new_html_erb___1536228049968182261_39193520 at /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/registrations/new.html.erb:4)
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (413.7ms)
+Completed 500 Internal Server Error in 480ms (ActiveRecord: 2.1ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'popper' with type 'application/javascript'
+Checked in these paths: 
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/config
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/images
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/jquery-rails-4.3.5/vendor/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/fonts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/vendor/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actioncable-5.1.7/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actionview-5.1.7/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/turbolinks-source-5.2.0/lib/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/node_modules):
+    37:     </div>
+    38:   <% end %>
+    39: </div>
+    40: <%= javascript_include_tag 'userValidation'%>
+  
+app/assets/config/manifest.js:2
+app/assets/javascripts/application.js:18
+app/views/devise/registrations/new.html.erb:40:in `_app_views_devise_registrations_new_html_erb___1536228049968182261_39193520'
+Started GET "/users/sign_up" for ::1 at 2019-08-22 06:58:05 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper.devise_error_messages!`
+is deprecated and it will be removed in the next major version.
+To customize the errors styles please run `rails g devise:views` and modify the
+`devise/shared/error_messages` partial.
+ (called from block in _app_views_devise_registrations_new_html_erb___1536228049968182261_33033740 at /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/registrations/new.html.erb:4)
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (53.8ms)
+Completed 500 Internal Server Error in 72ms (ActiveRecord: 0.6ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'popper' with type 'application/javascript'
+Checked in these paths: 
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/config
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/images
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/jquery-rails-4.3.5/vendor/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/fonts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/vendor/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actioncable-5.1.7/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actionview-5.1.7/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/turbolinks-source-5.2.0/lib/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/node_modules):
+    37:     </div>
+    38:   <% end %>
+    39: </div>
+    40: <%= javascript_include_tag 'userValidation'%>
+  
+app/assets/config/manifest.js:2
+app/assets/javascripts/application.js:18
+app/views/devise/registrations/new.html.erb:40:in `_app_views_devise_registrations_new_html_erb___1536228049968182261_33033740'
+Started GET "/users/sign_up" for ::1 at 2019-08-22 06:58:09 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper.devise_error_messages!`
+is deprecated and it will be removed in the next major version.
+To customize the errors styles please run `rails g devise:views` and modify the
+`devise/shared/error_messages` partial.
+ (called from block in _app_views_devise_registrations_new_html_erb___1536228049968182261_70285750165000 at /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/registrations/new.html.erb:4)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (52.2ms)
+Completed 500 Internal Server Error in 61ms (ActiveRecord: 0.3ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'popper' with type 'application/javascript'
+Checked in these paths: 
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/config
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/images
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/jquery-rails-4.3.5/vendor/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/fonts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/vendor/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actioncable-5.1.7/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actionview-5.1.7/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/turbolinks-source-5.2.0/lib/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/node_modules):
+    37:     </div>
+    38:   <% end %>
+    39: </div>
+    40: <%= javascript_include_tag 'userValidation'%>
+  
+app/assets/config/manifest.js:2
+app/assets/javascripts/application.js:18
+app/views/devise/registrations/new.html.erb:40:in `_app_views_devise_registrations_new_html_erb___1536228049968182261_70285750165000'
+Started GET "/users/sign_up" for ::1 at 2019-08-22 07:00:00 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper.devise_error_messages!`
+is deprecated and it will be removed in the next major version.
+To customize the errors styles please run `rails g devise:views` and modify the
+`devise/shared/error_messages` partial.
+ (called from block in _app_views_devise_registrations_new_html_erb___1536228049968182261_70285746749260 at /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/registrations/new.html.erb:4)
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (8.8ms)
+Completed 500 Internal Server Error in 160ms (ActiveRecord: 0.4ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'popper' with type 'application/javascript'
+Checked in these paths: 
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/config
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/images
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/jquery-rails-4.3.5/vendor/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/fonts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/vendor/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actioncable-5.1.7/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actionview-5.1.7/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/turbolinks-source-5.2.0/lib/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/node_modules):
+    3:   <head>
+    4:     <title>Rails Secret Code</title>
+    5:     <%= csrf_meta_tags %>
+    6:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    7:     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    8:   </head>
+    9:   <body>
+  
+app/assets/config/manifest.js:2
+app/assets/javascripts/application.js:18
+app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb__103171852797777378_70285746377180'
+Started GET "/users/sign_up" for ::1 at 2019-08-22 07:00:27 +0530
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper.devise_error_messages!`
+is deprecated and it will be removed in the next major version.
+To customize the errors styles please run `rails g devise:views` and modify the
+`devise/shared/error_messages` partial.
+ (called from block in _app_views_devise_registrations_new_html_erb___2201526704453411487_40567420 at /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/registrations/new.html.erb:4)
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (37.5ms)
+Completed 500 Internal Server Error in 442ms (ActiveRecord: 2.2ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'popper' with type 'application/javascript'
+Checked in these paths: 
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/config
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/images
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/jquery-rails-4.3.5/vendor/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/fonts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/app/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/twitter-bootstrap-rails-4.0.0/vendor/assets/stylesheets
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actioncable-5.1.7/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/actionview-5.1.7/lib/assets/compiled
+  /home/komalpc/.rvm/gems/ruby-2.2.2/gems/turbolinks-source-5.2.0/lib/assets/javascripts
+  /home/komalpc/Documents/komal/secret_code/SecretCodeApp/node_modules):
+    3:   <head>
+    4:     <title>Rails Secret Code</title>
+    5:     <%= csrf_meta_tags %>
+    6:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    7:     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    8:   </head>
+    9:   <body>
+  
+app/assets/javascripts/application.js:18
+app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___1936671408745002194_40396460'
+Started GET "/users/sign_up" for ::1 at 2019-08-22 07:00:49 +0530
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper.devise_error_messages!`
+is deprecated and it will be removed in the next major version.
+To customize the errors styles please run `rails g devise:views` and modify the
+`devise/shared/error_messages` partial.
+ (called from block in _app_views_devise_registrations_new_html_erb___242657069626142058_42036240 at /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/registrations/new.html.erb:4)
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (37.8ms)
+  Rendered layouts/_user_header.html.erb (1.9ms)
+Completed 200 OK in 876ms (Views: 822.9ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2019-08-22 07:00:55 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (6.0ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 84ms (Views: 79.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2019-08-22 07:00:57 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper.devise_error_messages!`
+is deprecated and it will be removed in the next major version.
+To customize the errors styles please run `rails g devise:views` and modify the
+`devise/shared/error_messages` partial.
+ (called from block in _app_views_devise_registrations_new_html_erb___242657069626142058_70348390505220 at /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/registrations/new.html.erb:4)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (8.8ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 93ms (Views: 90.1ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/users" for ::1 at 2019-08-22 07:02:51 +0530
+Processing by Users::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"UBdklpDXwGcZO+n/LTbQK615QK3zNVQRZkIyZevA/Hwy+UrEkc0yAYUbkJPIXSg9nYM0iUt95aZ9NcvhX9SIyw==", "user"=>{"first_name"=>"gdfg", "last_name"=>"", "email"=>"dgd", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "code_string"=>"1d5d107d"}}
+  [1m[35m (1.3ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "dgd"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering devise/registrations/new.html.erb within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper.devise_error_messages!`
+is deprecated and it will be removed in the next major version.
+To customize the errors styles please run `rails g devise:views` and modify the
+`devise/shared/error_messages` partial.
+ (called from block in _app_views_devise_registrations_new_html_erb___242657069626142058_70348387223920 at /home/komalpc/Documents/komal/secret_code/SecretCodeApp/app/views/devise/registrations/new.html.erb:4)
+  Rendered /home/komalpc/.rvm/gems/ruby-2.2.2/gems/devise-4.7.0/app/views/devise/shared/_error_messages.html.erb (1.7ms)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (11.4ms)
+  Rendered layouts/_user_header.html.erb (1.7ms)
+Completed 200 OK in 359ms (Views: 93.0ms | ActiveRecord: 2.0ms)
+
+
+Started POST "/users" for ::1 at 2019-08-22 07:04:58 +0530
+Processing by Users::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"y1dF6SXCsI7zH8OW19jxMvD8bMGRGsOeulOPXRtROqamflWgUccqsdfUWtU0JoJZDeWHZqZzt5wopEobtTDeWA==", "user"=>{"first_name"=>"gdfg", "last_name"=>"", "email"=>"dgd", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "code_string"=>"1d5d107d"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "dgd"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (9.5ms)
+  Rendered layouts/_user_header.html.erb (1.4ms)
+Completed 200 OK in 2359ms (Views: 2108.7ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/users" for ::1 at 2019-08-22 07:07:00 +0530
+Processing by Users::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"UBFdbTmQDsiz/ucIH3FHf1raBhyghCUNQnsHf/By3EY9OE0kTZWU95c1fkv8jzQUp8Ptu5ftUQ/QjMI5XhM4uA==", "user"=>{"first_name"=>"gdfg", "last_name"=>"", "email"=>"dgd", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "code_string"=>"1d5d107d"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "dgd"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (8.8ms)
+  Rendered layouts/_user_header.html.erb (1.2ms)
+Completed 200 OK in 341ms (Views: 89.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users" for ::1 at 2019-08-22 07:07:08 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/users"):
+  
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.7.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.7.0) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.7) lib/rack/method_override.rb:22:in `call'
+rack (2.0.7) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.7) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.1) lib/puma/configuration.rb:227:in `call'
+puma (3.12.1) lib/puma/server.rb:660:in `handle_request'
+puma (3.12.1) lib/puma/server.rb:474:in `process_client'
+puma (3.12.1) lib/puma/server.rb:334:in `block in run'
+puma (3.12.1) lib/puma/thread_pool.rb:135:in `call'
+puma (3.12.1) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/" for ::1 at 2019-08-22 07:07:16 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2019-08-22 07:07:16 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (4.3ms)
+  Rendered layouts/_user_header.html.erb (1.0ms)
+Completed 200 OK in 94ms (Views: 92.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2019-08-22 07:07:20 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (11.3ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 95ms (Views: 92.7ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/users" for ::1 at 2019-08-22 07:07:59 +0530
+Processing by Users::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"8S2MRiEzk3PMyHG2axStAYUJl8842/23ag4ikbGlA1OTw6IUIClhFVDoCNqOf1UXtfPj64CTTABxedsVBbF35A==", "user"=>{"first_name"=>"kom", "last_name"=>"123", "email"=>"komal.agrahari@newgenapps.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "code_string"=>"707c26c8"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.5ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 326ms (Views: 77.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users" for ::1 at 2019-08-22 07:08:59 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/users"):
+  
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.7.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.7.0) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.7) lib/rack/method_override.rb:22:in `call'
+rack (2.0.7) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.7) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.1) lib/puma/configuration.rb:227:in `call'
+puma (3.12.1) lib/puma/server.rb:660:in `handle_request'
+puma (3.12.1) lib/puma/server.rb:474:in `process_client'
+puma (3.12.1) lib/puma/server.rb:334:in `block in run'
+puma (3.12.1) lib/puma/thread_pool.rb:135:in `call'
+puma (3.12.1) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/" for ::1 at 2019-08-22 07:09:05 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2019-08-22 07:09:05 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (4.0ms)
+  Rendered layouts/_user_header.html.erb (1.2ms)
+Completed 200 OK in 78ms (Views: 75.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2019-08-22 07:09:10 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"H+cOjtIWAVqk4jt1t5SQSxusJ8Fltbw5GnWUpSwtPq9yzh7HphObZYApojZUauMg5rXMZlLcyDuIglHjgkzaUQ==", "user"=>{"email"=>"komal.agrahari@newgenapps.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-22 01:39:10.945504"], ["last_sign_in_at", "2019-08-22 00:37:12.516972"], ["current_sign_in_ip", "::1"], ["sign_in_count", 7], ["updated_at", "2019-08-22 01:39:10.946553"], ["id", 1]]
+  [1m[35m (66.7ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 338ms (ActiveRecord: 68.2ms)
+
+
+Started GET "/" for ::1 at 2019-08-22 07:09:11 +0530
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (33.3ms)
+  Rendered layouts/_user_header.html.erb (1.4ms)
+Completed 200 OK in 106ms (Views: 102.0ms | ActiveRecord: 1.6ms)
+
+
+Started DELETE "/users/sign_out" for ::1 at 2019-08-22 07:09:14 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"5OsH7Ri7KqZwMrojA7KmJLdcdECWAgiIgs26hQEXrVZP5Db9L2CtexTuKi3zj47tRpiuhtH4p3FpjxTspQaUrw=="}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 7ms (ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2019-08-22 07:09:14 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2019-08-22 07:09:14 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.7ms)
+  Rendered layouts/_user_header.html.erb (2.1ms)
+Completed 200 OK in 93ms (Views: 91.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2019-08-22 07:09:18 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (11.5ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 92ms (Views: 89.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2019-08-22 07:10:14 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.8ms)
+  Rendered layouts/_user_header.html.erb (1.2ms)
+Completed 200 OK in 89ms (Views: 86.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2019-08-22 07:10:51 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (6.5ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 85ms (Views: 82.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2019-08-22 07:14:34 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (9.6ms)
+  Rendered layouts/_user_header.html.erb (1.3ms)
+Completed 200 OK in 229ms (Views: 225.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2019-08-22 07:17:33 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (4.7ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 84ms (Views: 82.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2019-08-22 07:17:36 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"sgzszl3kSJrypUzsCyqrkoJwaw38+tBmDD83ZhqcansE7rp26oPBukMsNchIvXgRco8L2Ru61/BvjeTsnn1okQ==", "user"=>{"email"=>"komal.agrahari@newgenapps.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "last_sign_in_ip" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-22 01:47:36.423473"], ["last_sign_in_at", "2019-08-22 01:39:10.945504"], ["last_sign_in_ip", "::1"], ["sign_in_count", 8], ["updated_at", "2019-08-22 01:47:36.424502"], ["id", 1]]
+  [1m[35m (83.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 350ms (ActiveRecord: 84.4ms)
+
+
+Started GET "/" for ::1 at 2019-08-22 07:17:36 +0530
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (10.5ms)
+  Rendered layouts/_user_header.html.erb (0.9ms)
+Completed 200 OK in 87ms (Views: 84.0ms | ActiveRecord: 1.1ms)
+
+
+Started DELETE "/users/sign_out" for ::1 at 2019-08-22 07:17:47 +0530
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"5GyDYDmcNXTodBTwCu2OhWd8q+byYlHm4TN/vk18oZpV7YPMjxqMPYKkL6Woj+vcK01FsGKuEz81/XwdWjQTfQ=="}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 12ms (ActiveRecord: 1.1ms)
+
+
+Started GET "/" for ::1 at 2019-08-22 07:17:47 +0530
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2019-08-22 07:17:47 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (3.7ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 75ms (Views: 73.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2019-08-22 07:17:50 +0530
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (9.7ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 88ms (Views: 85.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2019-08-22 07:30:19 +0530
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "secret_codes"."code_string" FROM "secret_codes" WHERE "secret_codes"."user_id" IS NULL[0m
+  Rendered devise/registrations/new.html.erb within layouts/application (37.1ms)
+  Rendered layouts/_user_header.html.erb (2.3ms)
+Completed 200 OK in 783ms (Views: 732.6ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2019-08-22 07:30:22 +0530
+Processing by Users::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (5.8ms)
+  Rendered layouts/_user_header.html.erb (1.2ms)
+Completed 200 OK in 95ms (Views: 90.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2019-08-22 07:30:25 +0530
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IabKQaYAJICao7av1WEy0IOeAxHTrx+drvAr4cOUBOwmEuDKND/mLne83Ifd+7z7KqLIt9uGVA9Xxt+K1gdU0Q==", "user"=>{"email"=>"komal.agrahari@newgenapps.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "komal.agrahari@newgenapps.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2019-08-22 02:00:25.848511"], ["last_sign_in_at", "2019-08-22 01:47:36.423473"], ["sign_in_count", 9], ["updated_at", "2019-08-22 02:00:25.849925"], ["id", 1]]
+  [1m[35m (856.5ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 1131ms (ActiveRecord: 857.4ms)
+
+
+Started GET "/" for ::1 at 2019-08-22 07:30:26 +0530
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by SecretCodesController#index as HTML
+  Rendering secret_codes/index.html.erb within layouts/application
+  [1m[36mSecretCode Load (0.3ms)[0m  [1m[34mSELECT  "secret_codes".* FROM "secret_codes" LIMIT ? OFFSET ?[0m  [["LIMIT", 15], ["OFFSET", 0]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "secret_codes"[0m
+  Rendered secret_codes/index.html.erb within layouts/application (34.4ms)
+  Rendered layouts/_user_header.html.erb (1.1ms)
+Completed 200 OK in 106ms (Views: 102.0ms | ActiveRecord: 1.5ms)
+
+
